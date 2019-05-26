@@ -1,3 +1,5 @@
+ACLOCAL_AMFLAGS = -I build-aux -I build-aux/m4
+
 bin_PROGRAMS = identityd
 check_PROGRAMS = identityd_test
 

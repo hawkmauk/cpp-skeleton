@@ -15,10 +15,15 @@ define(_COPYRIGHT_YEAR, 2019)
 define(_COPYRIGHT_HOLDERS,[The %s developers])
 define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[Runcrypto Ltd]])
 
+dnl AUTOCONF
+AC_CONFIG_AUX_DIR([build-aux])
+AC_CONFIG_MACRO_DIR([build-aux/m4])
+AC_CONFIG_HEADERS([src/config/config.h])
+
 AC_INIT([_PROJECT_NAME],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_REVISION, m4_if(_CLIENT_VERSION_BUILD, [0], [], _CLIENT_VERSION_BUILD))m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[_PROJECT_ISSUES],[bitcoin],[_PROJECT_SITE])
 
+AC_CONFIG_FILES([Makefile])
 AC_PREREQ([2.69])
-
 
 dnl Checks for programs.
 AC_PROG_CXX
@@ -31,22 +36,19 @@ AC_CHECK_HEADERS([syslog.h],[],[AC_MSG_ERROR(You need the Syslog libraries.)])
 AC_CHECK_HEADERS([boost/test/unit_test.hpp],[],[AC_MSG_ERROR(You need the Boost libraries.)])
 AC_LANG_POP([C++])
 
-dnl test framework
-m4_include([build-aux/m4/ax_gnu_autotest.m4])
-m4_include([build-aux/m4/ax_boost_base.m4])
-m4_include([build-aux/m4/ax_boost_unit_test_framework.m4])
 
+
+dnl AUTOMAKE
+AM_INIT_AUTOMAKE([silent-rules foreign no-define subdir-objects])
+
+dnl test framework
 AX_BOOST_BASE([1.65.1])
 AX_BOOST_UNIT_TEST_FRAMEWORK
 
-dnl AUTOMAKE
-AC_CONFIG_AUX_DIR([build-aux])
-AC_CONFIG_MACRO_DIR([build-aux/m4])
-AC_CONFIG_HEADERS([src/config/config.h])
-AC_CONFIG_FILES([Makefile])
-AM_INIT_AUTOMAKE([1.11 silent-rules subdir-objects])
 
 dnl Checks for libraries.
+
+
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 
