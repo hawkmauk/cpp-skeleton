@@ -3,6 +3,7 @@
 
 # Delete files
 rm \
+Makefile \
 Makefile.in \
 aclocal.m4 \
 config.log \

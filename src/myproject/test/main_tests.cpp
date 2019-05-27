@@ -1,4 +1,5 @@
-#define BOOST_TEST_MODULE resolver-example test
+#define BOOST_TEST_MODULE myproject
+#define BOOST_TEST_DYN_LINK
 #include <boost/test/unit_test.hpp>
 
 BOOST_AUTO_TEST_CASE(first_test)

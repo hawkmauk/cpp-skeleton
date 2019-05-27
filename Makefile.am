@@ -1,15 +1,15 @@
 ACLOCAL_AMFLAGS = -I build-aux -I build-aux/m4
 
-bin_PROGRAMS = identityd
-check_PROGRAMS = identityd_test
+bin_PROGRAMS = myproject
+check_PROGRAMS = myproject_test
 
-identityd_SOURCES = \
-	src/identityd/main.cpp
+myproject_SOURCES = \
+	src/myproject/main.cpp
 
-identityd_test_SOURCES = \
-	src/identityd/test/resolver-example-tests.cpp
+myproject_test_SOURCES = \
+	src/myproject/test/main_tests.cpp
 
-identityd_test_LDADD = $(BOOST_FILESYSTEM_LIB) $(BOOST_SYSTEM_LIB) $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
+myproject_test_LDADD = $(BOOST_FILESYSTEM_LIB) $(BOOST_SYSTEM_LIB) $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
 
 CC = g++
 
