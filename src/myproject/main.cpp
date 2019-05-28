@@ -1,8 +1,9 @@
-#include <iostream>
-using namespace std;
+#include "greeter.hpp"
 
-int main() 
-{
-    cout << "Hello, World!";
-    return 0;
+int main(){
+	Greeter g;
+	g.setName( "main" );
+	cout << g.greet();
+
+	return 0;
 }
