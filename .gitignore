@@ -53,8 +53,8 @@ Makefile.in
 
 # http://www.gnu.org/software/autoconf
 
-/build-aux
-
+/build-aux/*
+/build/*
 autom4te.cache
 /autoscan.log
 /autoscan-*.log
