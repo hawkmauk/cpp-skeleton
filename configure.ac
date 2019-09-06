@@ -55,6 +55,7 @@ dnl Checks for library functions.
 dnl AUTOCONF
 AC_CONFIG_FILES([Makefile
     common/Makefile
-    src/Makefile])
+    src/Makefile
+    src/test/Makefile])
 
 AC_OUTPUT
