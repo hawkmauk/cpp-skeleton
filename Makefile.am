@@ -67,6 +67,3 @@ client_test_SOURCES = \
 
 client_test_LDADD = $(common_LDADD)
 
-
-
-

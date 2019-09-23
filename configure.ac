@@ -13,11 +13,9 @@ define(_COPYRIGHT_YEAR, 2019)
 define(_COPYRIGHT_HOLDERS,[The %s developers])
 define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[Runcrypto Ltd]])
 
-dnl Initialise autoconf
-AC_INIT([_PROJECT_NAME],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_REVISION, m4_if(_CLIENT_VERSION_BUILD, [0], [], _CLIENT_VERSION_BUILD))m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[_PROJECT_ISSUES],[skeleton],[_PROJECT_SITE])
 dnl create config headers in the following directory
 AC_CONFIG_HEADERS([src/config/config.h])
-dnl define where to find m4 macros
+AC_CONFIG_HEADERS([common/config.h])
 AC_CONFIG_MACRO_DIR([build-aux/m4])
 dnl this checks for config.sub and needs to be called after AC_INIT
 AC_CONFIG_AUX_DIR([build-aux]) 
@@ -48,10 +46,12 @@ AM_CONDITIONAL(DEBUG, test x"$debug" = x"true")
 dnl -------------------------------
 dnl m4 Macros
 dnl -------------------------------
+AC_PROG_RANLIB
 
 dnl test framework
 dnl AX_GNU_AUTOTEST
 AX_BOOST_BASE([1.65.1])
+AX_BOOST_PROGRAM_OPTIONS
 AX_BOOST_UNIT_TEST_FRAMEWORK
 
 AC_CANONICAL_HOST
@@ -60,6 +60,9 @@ dnl Initialise AUTOMAKE
 AM_INIT_AUTOMAKE([silent-rules foreign no-define subdir-objects])
 
 dnl Checks for header files.
+AC_FUNC_ERROR_AT_LINE
+AC_TYPE_INT64_T
+AC_TYPE_SIZE_T
 AC_CHECK_HEADER_STDBOOL
 AC_LANG_PUSH([C++])
 AC_CHECK_HEADERS([syslog.h],[],[AC_MSG_ERROR(You need the Syslog libraries.)])
@@ -73,6 +76,9 @@ dnl Checks for typedefs, structures, and compiler characteristics.
 dnl Checks for library functions.
 
 dnl AUTOCONF
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile
+    common/Makefile
+    src/Makefile
+    src/test/Makefile])
 
 AC_OUTPUT

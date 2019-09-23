@@ -1,7 +1,10 @@
-/* src/config/config.h.in.  Generated from configure.ac by autoheader.  */
+/* common/config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* define if the Boost library is available */
 #undef HAVE_BOOST
+
+/* define if the Boost::PROGRAM_OPTIONS library is available */
+#undef HAVE_BOOST_PROGRAM_OPTIONS
 
 /* Define to 1 if you have the <boost/test/unit_test.hpp> header file. */
 #undef HAVE_BOOST_TEST_UNIT_TEST_HPP
@@ -66,3 +69,6 @@
 /* Define to the type of a signed integer type of width exactly 64 bits if
    such a type exists and the standard includes do not define it. */
 #undef int64_t
+
+/* Define to `unsigned int' if <sys/types.h> does not define. */
+#undef size_t
