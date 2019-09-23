@@ -11,19 +11,25 @@ BOOST_AUTO_TEST_CASE( constructor_tests )
 	Server s1;
 
     std::ostringstream message;
-    message << "greeting: " << s.greet() << std::endl;
+    message << "greeting: " << s1.greet() << std::endl;
     BOOST_TEST_MESSAGE( "Testing default greet: " );
     BOOST_TEST_MESSAGE( message.str() );
 
-	BOOST_TEST( s.greet() == "Hello Server!" ); 
+	BOOST_TEST( s1.greet() == "Hello Server!" ); 
 
-    string name = "boost";
-	Server s2( name );
+}
+
+BOOST_AUTO_TEST_CASE( setname_tests )
+{
+	Server s1;
+    string name = "setName";
+    s1.setName( name );
 
     std::ostringstream message;
-    message << "greeting: " << s.greet() << std::endl;
-    BOOST_TEST_MESSAGE( "Testing greet: " );
+    message << "greeting: " << s1.greet() << std::endl;
+    BOOST_TEST_MESSAGE( "Testing default greet: " );
     BOOST_TEST_MESSAGE( message.str() );
 
-	BOOST_TEST( s.greet() == "Hello " + name + "!" ); 
+	BOOST_TEST( s1.greet() == "Hello " + name + "!" ); 
+
 }

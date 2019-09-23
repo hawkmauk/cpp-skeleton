@@ -4,6 +4,7 @@ dnl Process this file with autoconf to produce a configure script.
 define(_PROJECT_NAME, [skeleton])
 define(_PROJECT_ISSUES, [https://github.com/runcrypto/skeleton/issues])
 define(_PROJECT_SITE, [https://github.com/runcrypto/skeleton])
+define(_CLIENT_VERSION_MAJOR, 0)
 define(_CLIENT_VERSION_MINOR, 1)
 define(_CLIENT_VERSION_REVISION, 0)
 define(_CLIENT_VERSION_BUILD, 0)
