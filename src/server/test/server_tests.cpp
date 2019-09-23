@@ -8,7 +8,7 @@
 
 BOOST_AUTO_TEST_CASE( constructor_tests )
 {
-	Server s;
+	Server s1;
 
     std::ostringstream message;
     message << "greeting: " << s.greet() << std::endl;
@@ -17,4 +17,13 @@ BOOST_AUTO_TEST_CASE( constructor_tests )
 
 	BOOST_TEST( s.greet() == "Hello Server!" ); 
 
+    string name = "boost";
+	Server s2( name );
+
+    std::ostringstream message;
+    message << "greeting: " << s.greet() << std::endl;
+    BOOST_TEST_MESSAGE( "Testing greet: " );
+    BOOST_TEST_MESSAGE( message.str() );
+
+	BOOST_TEST( s.greet() == "Hello " + name + "!" ); 
 }
