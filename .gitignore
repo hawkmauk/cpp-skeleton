@@ -1,7 +1,8 @@
 **/stamp-h1
 **/config.h
 **/.deps
-
+/build
+/debug
 # temp files
 *~
 

@@ -13,14 +13,41 @@ define(_COPYRIGHT_YEAR, 2019)
 define(_COPYRIGHT_HOLDERS,[The %s developers])
 define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[Runcrypto Ltd]])
 
-AC_INIT([_PROJECT_NAME],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_REVISION, m4_if(_CLIENT_VERSION_BUILD, [0], [], _CLIENT_VERSION_BUILD))m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[_PROJECT_ISSUES],[bitcoin],[_PROJECT_SITE])
+dnl Initialise autoconf
+AC_INIT([_PROJECT_NAME],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_REVISION, m4_if(_CLIENT_VERSION_BUILD, [0], [], _CLIENT_VERSION_BUILD))m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[_PROJECT_ISSUES],[skeleton],[_PROJECT_SITE])
+dnl create config headers in the following directory
 AC_CONFIG_HEADERS([src/config/config.h])
+dnl define where to find m4 macros
 AC_CONFIG_MACRO_DIR([build-aux/m4])
-AC_CONFIG_AUX_DIR([build-aux]) dnl this checks for config.sub and needs to be called after AC_INIT
-
+dnl this checks for config.sub and needs to be called after AC_INIT
+AC_CONFIG_AUX_DIR([build-aux]) 
 dnl Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
+dnl Populates EXEEXT variable
+AX_PROG_CC_FOR_BUILD
+
+dnl -------------------------------
+dnl Arguments
+dnl -------------------------------
+
+dnl set the option to build for debugging
+AC_ARG_ENABLE(debug,
+AS_HELP_STRING([--enable-debug],
+               [enable debugging, default: no]),
+[case "${enableval}" in
+             yes) debug=true ;;
+             no)  debug=false ;;
+             *)   AC_MSG_ERROR([bad value ${enableval} for --enable-debug]) ;;
+esac],
+[debug=false])
+
+AM_CONDITIONAL(DEBUG, test x"$debug" = x"true")
+
+
+dnl -------------------------------
+dnl m4 Macros
+dnl -------------------------------
 
 dnl test framework
 dnl AX_GNU_AUTOTEST
@@ -29,9 +56,8 @@ AX_BOOST_UNIT_TEST_FRAMEWORK
 
 AC_CANONICAL_HOST
 
-dnl AUTOMAKE
+dnl Initialise AUTOMAKE
 AM_INIT_AUTOMAKE([silent-rules foreign no-define subdir-objects])
-
 
 dnl Checks for header files.
 AC_CHECK_HEADER_STDBOOL
@@ -39,7 +65,6 @@ AC_LANG_PUSH([C++])
 AC_CHECK_HEADERS([syslog.h],[],[AC_MSG_ERROR(You need the Syslog libraries.)])
 AC_CHECK_HEADERS([boost/test/unit_test.hpp],[],[AC_MSG_ERROR(You need the Boost libraries.)])
 AC_LANG_POP([C++])
-
 
 dnl Checks for libraries.
 
