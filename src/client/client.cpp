@@ -2,18 +2,12 @@
 #include <config.h>
 #include <sstream>
 #include <string>
+#include "../common/system.cpp"
 
 Client::Client( ): m_name( "Client" )
 { }
 
-string Client::greet()
-{
-    std::ostringstream oss;
-	oss << "Hello " << getName() << "!"; 
-    return oss.str();
-}
-
 string Client::getVersion()
 {
-    return PACKAGE_NAME;
+    return skeleton::getVersion();
 }

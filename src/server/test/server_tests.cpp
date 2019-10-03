@@ -1,35 +1,27 @@
 #define BOOST_TEST_MODULE server
 #define BOOST_ALL_DYN_LINK
 #include <boost/test/unit_test.hpp>
-#include <sstream>
 #include <string>
 #include "../server.cpp"  
 
 
 BOOST_AUTO_TEST_CASE( constructor_tests )
 {
-	Server s1;
 
-    std::ostringstream message;
-    message << "greeting: " << s1.greet() << std::endl;
-    BOOST_TEST_MESSAGE( "Testing default greet: " );
-    BOOST_TEST_MESSAGE( message.str() );
+    BOOST_TEST_MESSAGE( "Testing default initialisation: " );
 
-	BOOST_TEST( s1.greet() == "Hello Server!" ); 
+    Server s1;
 
-}
+	BOOST_TEST( s1.getPort() == Server::DEFAULT_PORT ); 
+	BOOST_TEST( s1.getIpv4() == Server::DEFAULT_IPV4 ); 
 
-BOOST_AUTO_TEST_CASE( setname_tests )
-{
-	Server s1;
-    string name = "setName";
-    s1.setName( name );
+    BOOST_TEST_MESSAGE( "Testing initialisation: " );
 
-    std::ostringstream message;
-    message << "greeting: " << s1.greet() << std::endl;
-    BOOST_TEST_MESSAGE( "Testing default greet: " );
-    BOOST_TEST_MESSAGE( message.str() );
+    int port = 80;
+    std::string ipv4 = "127.0.0.1";
+    Server s2( port, ipv4 );
 
-	BOOST_TEST( s1.greet() == "Hello " + name + "!" ); 
+	BOOST_TEST( s2.getPort() == port ); 
+	BOOST_TEST( s2.getIpv4() == ipv4 );
 
 }

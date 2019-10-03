@@ -2,8 +2,8 @@
 #include <iostream>
 
 int main(){
+    //initialise the server
 	Server g;
-	cout << g.greet() << std::endl;
-    cout << g.getVersion() << std::endl;
+    std::cout << g.getVersion() << std::endl;
 	return 0;
 }

@@ -1,6 +1,6 @@
 #ifndef SKELETON_CLIENT_H
 #define SKELETON_CLIENT_H
-
+#define APPLICATION_NAME PACKAGE_NAME "-cli"
 #include <string>
 
 using namespace std;
@@ -13,7 +13,6 @@ class Client {
 		
 		//methods
         string getVersion();
-		string greet();
 
 		//accessors
 		string getName() { return m_name; };
