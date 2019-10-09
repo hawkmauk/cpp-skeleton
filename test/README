@@ -1,3 +1,0 @@
-This directory contains integration testing only, for
-unit tests check out the directory src/cli/test
-src/daemon/test ....

@@ -2,7 +2,7 @@
 #define BOOST_ALL_DYN_LINK
 #include <boost/test/unit_test.hpp>
 #include <string>
-#include "../server.cpp"  
+#include <src/server/server.cpp>  
 
 
 BOOST_AUTO_TEST_CASE( constructor_tests )

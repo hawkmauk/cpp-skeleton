@@ -1,16 +1,24 @@
 #!/bin/sh
-#  Reset directory
 
-# Delete files
-rm \
-Makefile \
-Makefile.in \
-aclocal.m4 \
-config.log \
-configure \
-build/* \
-build-aux/* \
-bin/*
+# set the project directory
 
-rm -rf \
-autom4te.cache
+PROJECT_DIR=$(pwd)
+
+# delete the project directory
+if [ -d build ]; then
+    echo "Deleting build directory"
+    cd build;
+    make distclean;
+    cd ${PROJECT_DIR};
+    rm -R build;
+fi
+
+echo "Creating new build directory"
+mkdir build
+echo "Running autogen.sh"
+./autogen.sh
+echo "Configuring project"
+cd build
+../configure
+make check
+

@@ -42,7 +42,7 @@ server_CPPFLAGS = \
     $(common_CPPFLAGS)
 
 server_test_SOURCES = \
-	src/server/test/server_tests.cpp
+	test/unit/server/server_tests.cpp
 
 server_test_LDADD = $(common_LDADD)
 
@@ -63,7 +63,6 @@ client_CPPFLAGS = \
     $(common_CPPFLAGS)
 
 client_test_SOURCES = \
-	src/client/test/client_tests.cpp
+	test/unit/client/client_tests.cpp
 
 client_test_LDADD = $(common_LDADD)
-
