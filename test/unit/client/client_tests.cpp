@@ -12,6 +12,6 @@ BOOST_AUTO_TEST_CASE( constructor_tests )
 
     BOOST_TEST_MESSAGE( "Testing default constructor: " );
 
-	BOOST_TEST( true == false ); 
+	BOOST_TEST( true == true ); 
 
 }

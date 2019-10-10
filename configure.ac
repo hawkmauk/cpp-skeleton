@@ -45,6 +45,18 @@ esac],
 
 AM_CONDITIONAL(DEBUG, test x"$debug" = x"true")
 
+dnl set the option to build for debugging
+AC_ARG_ENABLE(tests,
+AS_HELP_STRING([--enable-tests],
+               [enable integration tests, default: no]),
+[case "${enableval}" in
+             yes) tests=true ;;
+             no)  tests=false ;;
+             *)   AC_MSG_ERROR([bad value ${enableval} for --enable-tests]) ;;
+esac],
+[tests=false])
+
+AM_CONDITIONAL(INTEGRATION_TESTS, test x"$tests" = x"true")
 
 dnl -------------------------------
 dnl m4 Macros

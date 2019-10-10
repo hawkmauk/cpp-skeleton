@@ -1,6 +1,7 @@
 ACLOCAL_AMFLAGS = -I build-aux -I build-aux/m4
 EXTRA_DIST = $(TESTS)
 CC = g++
+PYTHON=python3
 
 bin_PROGRAMS = \
     server \
@@ -11,6 +12,7 @@ check_PROGRAMS = \
     client_test
 
 TESTS = $(check_PROGRAMS)
+
 
 # If configure was run with --debug=true
 if DEBUG
@@ -66,3 +68,13 @@ client_test_SOURCES = \
 	test/unit/client/client_tests.cpp
 
 client_test_LDADD = $(common_LDADD)
+
+#---------------------------
+# INTEGRATION TESTS
+# --------------------------
+
+if INTEGRATION_TESTS
+integrationdir = ../test/integration
+check-local:
+	$(PYTHON) $(integrationdir)/testrunner.py
+endif

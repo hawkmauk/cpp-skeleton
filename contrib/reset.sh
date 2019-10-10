@@ -19,6 +19,6 @@ echo "Running autogen.sh"
 ./autogen.sh
 echo "Configuring project"
 cd build
-../configure
+../configure --enable-debug --enable-tests
 make check
 
