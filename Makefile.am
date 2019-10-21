@@ -1,7 +1,7 @@
 ACLOCAL_AMFLAGS = -I build-aux -I build-aux/m4
 EXTRA_DIST = $(TESTS)
 CC = g++
-PYTHON=python3
+PYTHON=python3.7
 
 bin_PROGRAMS = \
     server \
@@ -73,8 +73,11 @@ client_test_LDADD = $(common_LDADD)
 # INTEGRATION TESTS
 # --------------------------
 
-if INTEGRATION_TESTS
-integrationdir = ../test/integration
+if FUNCTIONAL_TESTS
+PYTEST_OPTS := -v --timeout=550 --timeout_method=thread-p no:logging
+PYTHONPATH=`pwd`/contrib/pyskeleton::$$PYTHONPATH
+
+functionaldir = ../test/functional
 check-local:
-	$(PYTHON) $(integrationdir)/testrunner.py
+	$(PYTHON) $(functionaldir)/testrunner.py
 endif

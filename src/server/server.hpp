@@ -2,16 +2,17 @@
 #define SKELETON_SERVER_H
 #define APPLICATION_NAME PACKAGE_NAME "d"
 
+#include <stdio.h>
 #include <string>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
 
 
 class Server {
 	public:
 
-        //default port number
-        static const int DEFAULT_PORT;
-        //default to any ip address
-        static const std::string DEFAULT_IPV4;
+        pid_t pid;
 
 		//constructors
 		Server();
@@ -27,16 +28,20 @@ class Server {
 		//methods
         std::string getVersion();
 
-        //accessor methods
-        int getPort(){ return m_port; };
-        std::string getIpv4(){ return m_ipv4; };
+        int stop();
 
 	private:
 
-        //port number to bind to
-		int m_port;
-        //ipv4 address to bind to
+        int sockfd, newsockfd, portno;
+        socklen_t clilen;
+        char buffer[256];
+        struct sockaddr_in serv_addr, cli_addr;
+        char str[INET_ADDRSTRLEN];
+        int m_port;
         std::string m_ipv4;
+
+        // Daemonize the process to run in the background
+        void daemonize();
 
 };
 

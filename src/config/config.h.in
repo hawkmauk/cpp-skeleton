@@ -1,5 +1,11 @@
 /* src/config/config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Default list address for DAEMON */
+#undef DEFAULT_DAEMON_IPV4
+
+/* Default DAEMON port number */
+#undef DEFAULT_DAEMON_PORT
+
 /* define if the Boost library is available */
 #undef HAVE_BOOST
 

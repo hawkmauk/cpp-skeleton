@@ -17,6 +17,8 @@ define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[Runcrypto Ltd]])
 dnl Initialise autoconf
 AC_INIT([_PROJECT_NAME],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_REVISION, m4_if(_CLIENT_VERSION_BUILD, [0], [], _CLIENT_VERSION_BUILD))m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[_PROJECT_ISSUES],[_PROJECT_NAME],[_PROJECT_SITE])
 dnl create config headers in the following directory
+
+
 AC_CONFIG_HEADERS([src/config/config.h])
 dnl define where to find m4 macros
 AC_CONFIG_MACRO_DIR([build-aux/m4])
@@ -27,6 +29,9 @@ AC_PROG_CXX
 AC_PROG_CC
 dnl Populates EXEEXT variable
 AX_PROG_CC_FOR_BUILD
+
+dnl get the version details from git
+AC_REVISION([m4_esyscmd_s([git describe --always])])
 
 dnl -------------------------------
 dnl Arguments
@@ -56,7 +61,13 @@ AS_HELP_STRING([--enable-tests],
 esac],
 [tests=false])
 
-AM_CONDITIONAL(INTEGRATION_TESTS, test x"$tests" = x"true")
+AM_CONDITIONAL(FUNCTIONAL_TESTS, test x"$tests" = x"true")
+
+dnl -------------------------------
+dnl CONFIG HEADERS
+dnl -------------------------------
+AC_DEFINE([DEFAULT_DAEMON_PORT], 6678, [Default DAEMON port number])
+AC_DEFINE([DEFAULT_DAEMON_IPV4], ["127.0.0.1"], [Default list address for DAEMON])
 
 dnl -------------------------------
 dnl m4 Macros

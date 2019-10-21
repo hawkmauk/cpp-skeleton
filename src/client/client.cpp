@@ -5,7 +5,9 @@
 #include "../common/system.cpp"
 
 Client::Client( ): m_name( "Client" )
-{ }
+{
+    
+}
 
 string Client::getVersion()
 {
