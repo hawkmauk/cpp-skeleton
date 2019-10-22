@@ -1,5 +1,6 @@
 #ifndef SKELETON_SERVER_H
 #define SKELETON_SERVER_H
+#include <config.h>
 #define APPLICATION_NAME PACKAGE_NAME "d"
 
 #include <stdio.h>

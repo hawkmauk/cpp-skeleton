@@ -3,7 +3,7 @@
 #include <boost/test/unit_test.hpp>
 #include <sstream>
 #include <string>
-#include <src/client/client.cpp>  
+#include <src/client/client.hpp>  
 
 
 BOOST_AUTO_TEST_CASE( constructor_tests )

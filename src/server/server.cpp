@@ -1,10 +1,8 @@
+#include "server.hpp"
+#include "../common/system.hpp"
 #include <unistd.h>
-#include <config.h>
 #include <sstream>
 #include <cstring>
-#include "server.hpp"
-#include "../common/system.cpp"
-#include "../common/error.cpp"
 
 // Constructor with member initialisation
 Server::Server( int port, std::string ipv4 ) : m_port( port ), m_ipv4( ipv4 )
@@ -15,7 +13,7 @@ Server::Server( int port, std::string ipv4 ) : m_port( port ), m_ipv4( ipv4 )
     //create a socket
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0)
-        error("ERROR openeing socket");
+        skeleton::error("ERROR openeing socket");
 
     // clear address structure
      memset((char *) &serv_addr, 0, sizeof(serv_addr));
@@ -36,7 +34,7 @@ Server::Server( int port, std::string ipv4 ) : m_port( port ), m_ipv4( ipv4 )
     // This bind() call will bind  the socket to the current IP address on port, portno
     if (bind(sockfd, (struct sockaddr *) &serv_addr,
         sizeof(serv_addr)) < 0) 
-        error("ERROR on binding");
+        skeleton::error("ERROR on binding");
 
     // This listen() call tells the socket to listen to the incoming connections.
     // The listen() function places all incoming connection into a backlog queue
@@ -55,18 +53,19 @@ Server::Server( int port, std::string ipv4 ) : m_port( port ), m_ipv4( ipv4 )
     // communicating with the connected client.
     newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
     if (newsockfd < 0) 
-        error("ERROR on accept");
+        skeleton::error("ERROR on accept");
 
     printf("server: got connection from %s port %d\n", inet_ntop(AF_INET, &(cli_addr.sin_addr), str, INET_ADDRSTRLEN), ntohs(cli_addr.sin_port));
     
+    // Get the request by reading from the socket
+    memset(buffer,0,256);
+    int n = read(newsockfd,buffer,255);
+    if (n < 0) skeleton::error("ERROR reading from socket");
+    printf("Here is the message: %s\n",buffer);
+
+    // Send the response
     // This send() function sends the 13 bytes of the string to the new socket
     send(newsockfd, "Hello, world!\n", 13, 0);
-
-    memset(buffer,0,256);
-
-    int n = read(newsockfd,buffer,255);
-    if (n < 0) error("ERROR reading from socket");
-    printf("Here is the message: %s\n",buffer);
     
 }
 
@@ -97,7 +96,7 @@ Server::Server() : Server( DEFAULT_DAEMON_PORT, DEFAULT_DAEMON_IPV4 )
 
 std::string Server::getVersion()
 {
-    return skeleton::getVersion();
+    return skeleton::getVersion( APPLICATION_NAME );
 }
 
 int Server::stop()

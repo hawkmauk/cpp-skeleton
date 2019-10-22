@@ -1,6 +1,8 @@
 #ifndef SKELETON_CLIENT_H
 #define SKELETON_CLIENT_H
+#include <config.h>
 #define APPLICATION_NAME PACKAGE_NAME "-cli"
+
 #include <string>
 
 using namespace std;

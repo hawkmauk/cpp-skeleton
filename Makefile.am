@@ -23,10 +23,17 @@ AM_CFLAGS = -O2
 AM_CXXFLAGS = -O2
 endif
 
+
+# -------------------------
+# Common
+# -------------------------
 # Common flags used for all targets
 common_LDADD = $(BOOST_FILESYSTEM_LIB) $(BOOST_SYSTEM_LIB) $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
 common_CPPFLAGS = \
     -I$(top_srcdir)/config
+
+common_SOURCES = \
+    src/common/system.cpp
 
 # -------------------------
 # SERVER
@@ -36,17 +43,33 @@ common_CPPFLAGS = \
 serverdir = $(top_builddir)/src/server
 server_BIN = $(top_builddir)/src/$(_PROJECT_NAME)d$(EXEEXT)
 
+# List of the sources for the server
+server_core_SOURCES = \
+    $(common_SOURCES) \
+    src/server/server.cpp
+
+# This is the same as core sources but with main.cpp.  This is to avoid
+# conflicts with main() when running the test suite
+
 server_SOURCES = \
 	src/server/main.cpp \
-	src/server/server.cpp
+	$(server_core_SOURCES)
 
 server_CPPFLAGS = \
     $(common_CPPFLAGS)
 
+# Server unit tests
 server_test_SOURCES = \
+    $(server_core_SOURCES) \
 	test/unit/server/server_tests.cpp
 
-server_test_LDADD = $(common_LDADD)
+# Comiler flags
+server_test_CPPFLAGS = \
+    -I$(top_srcdir)/src/server/
+
+# Linker flags
+server_test_LDADD = \
+    $(common_LDADD)
 
 
 # -------------------------
@@ -57,14 +80,19 @@ server_test_LDADD = $(common_LDADD)
 clientdir = $(top_builddir)/src/client
 client_BIN = $(top_builddir)/src/$(_PROJECT_NAME)-cli$(EXEEXT)
 
-client_SOURCES = \
-	src/client/main.cpp \
+client_core_SOURCES = \
+    $(common_SOURCES) \
 	src/client/client.cpp
+
+client_SOURCES = \
+    src/client/main.cpp \
+    $(client_core_SOURCES)
 
 client_CPPFLAGS = \
     $(common_CPPFLAGS)
 
 client_test_SOURCES = \
+    $(client_core_SOURCES) \
 	test/unit/client/client_tests.cpp
 
 client_test_LDADD = $(common_LDADD)

@@ -6,6 +6,8 @@
 # temp files
 *~
 
+.vscode/
+
 # vim temp files
 *.swp
 
@@ -283,7 +285,7 @@ sympy-plots-for-*.tex/
 # pythontex
 *.pytxcode
 pythontex-files-*/
-
+**/__pycache__/
 # tcolorbox
 *.listing
 
